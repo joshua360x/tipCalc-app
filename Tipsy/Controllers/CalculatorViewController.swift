@@ -23,7 +23,14 @@ class CalculatorViewController: UIViewController {
     @IBOutlet weak var twentyPctButton: UIButton!
     
     var globalTip : Float = 0.0
+    var splitAmount = 0
     
+    
+    func getBillText() -> String {
+        var newBill = ""
+        newBill = self.billTextField.text ?? "No Number found"
+        return newBill
+    }
     
     @IBAction func tipChanged(_ sender: UIButton) {
         
@@ -49,15 +56,23 @@ class CalculatorViewController: UIViewController {
 
         }
         
+        billTextField.endEditing(true)
+        
     }
     
     @IBAction func stepperValueChanged(_ sender: UIStepper) {
         splitNumberLabel.text = String(format: "%.0f", sender.value)
+        splitAmount = Int(sender.value)
         
     }
     
     @IBAction func calculatePressed(_ sender: UIButton) {
+        var billNoTipYet = Float(getBillText()) ?? 0.0
+        print(billNoTipYet)
         print(globalTip)
+        
+        var totalBillCalc = Float(((billNoTipYet*globalTip) + billNoTipYet) / Float(splitAmount))
+        print(totalBillCalc)
         
     }
 //    override func viewDidLoad() {
